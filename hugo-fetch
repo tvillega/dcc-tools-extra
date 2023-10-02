@@ -40,7 +40,7 @@ function install_program() {
     rm "${target_dir}/LICENSE"
 
     # clean cache
-    rmdir -rf ${che_dir}
+    rm -rf ${che_dir}
 
 }
 

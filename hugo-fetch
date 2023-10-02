@@ -30,7 +30,7 @@ function install_program() {
     mkdir -p "${che_dir}"
 
     # download binary file
-    curl -s -L "${gh_url}/releases/download/${program_tag}/${name}_${program_tag}_linux-amd64.tar.gz" --output ${che_dir}/${name}.tar.gz
+    curl -s -L "${gh_url}/releases/download/v${program_tag}/${name}_${program_tag}_linux-amd64.tar.gz" --output ${che_dir}/${name}.tar.gz
 
     # extract binary file to exec path
     tar -xf "${che_dir}/${name}.tar.gz" -C "${target_dir}"
@@ -40,7 +40,7 @@ function install_program() {
     rm "${target_dir}/LICENSE"
 
     # clean cache
-    rmdir ${che_dir}
+    rmdir -rf ${che_dir}
 
 }
 

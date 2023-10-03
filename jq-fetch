@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# dcc-tools assumes this places
+bin_dir="$HOME/.local/bin"
+
+### Program info
+###
+name="jq"
+gh_url="https://github.com/jqlang/${name}"
+che_dir="$HOME/.cache/${name}"
+
+### Server var
+###
+che_dir="$HOME/.cache/${name}"
+bin_dir="$HOME/.local/bin"
+
+## Install instructions
+##
+function install_program() {
+
+    target_dir="$1"
+
+    # get latest version url
+    program_url=$(curl -w "%{url_effective}\n" -I -L -s -S "${gh_url}/releases/latest" -o /dev/null)
+
+    # get latest tag
+    program_tag="${program_url##*/}"
+
+    # download binary file
+    curl -s -L "${gh_url}/releases/download/${program_tag}/${name}-linux-amd64.tar.gz" --output ${target_dir}/${name}
+
+}
+
+function remove_program() {
+
+    local target_dir=$1
+
+    if [[ -f "${target_dir}/${name}" ]] ; then
+        rm "${target_dir}/${name}"
+    fi
+    
+}
+
+for arg in "$@"
+do
+    case $arg in
+        install)
+            shift
+            install_program "$1"
+            exit
+            ;;
+        remove)
+            shift
+            remove_program "$1"
+            exit
+            ;;
+        *)
+            ;;
+    esac
+done

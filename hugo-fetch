@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# dcc-tools assumes this places
-bin_dir="$HOME/.local/bin"
-
 ### Program info
 ###
 name="hugo"
@@ -12,7 +9,6 @@ che_dir="$HOME/.cache/${name}"
 ### Server var
 ###
 che_dir="$HOME/.cache/${name}"
-bin_dir="$HOME/.local/bin"
 
 ## Install instructions
 ##
@@ -30,7 +26,7 @@ function install_program() {
     mkdir -p "${che_dir}"
 
     # download binary file
-    curl -s -L "${gh_url}/releases/download/${program_tag}/${name}_${program_tag##*v}_linux-amd64.tar.gz" --output ${che_dir}/${name}.tar.gz
+    curl -s -L "${gh_url}/releases/download/${program_tag}/${name}_${program_tag##*v}_linux-amd64.tar.gz" --output "${che_dir}/${name}.tar.gz"
 
     # extract binary file to exec path
     tar -xf "${che_dir}/${name}.tar.gz" -C "${target_dir}"
@@ -40,18 +36,8 @@ function install_program() {
     rm "${target_dir}/LICENSE"
 
     # clean cache
-    rm -rf ${che_dir}
+    rm -rf "${che_dir}"
 
-}
-
-function remove_program() {
-
-    local target_dir=$1
-
-    if [[ -f "${target_dir}/${name}" ]] ; then
-        rm "${target_dir}/${name}"
-    fi
-    
 }
 
 for arg in "$@"
@@ -59,12 +45,7 @@ do
     case $arg in
         install)
             shift
-            install_program $1
-            exit
-            ;;
-        remove)
-            shift
-            remove_program $1
+            install_program "$1"
             exit
             ;;
         *)

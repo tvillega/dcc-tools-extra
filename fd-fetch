@@ -28,7 +28,8 @@ function install_program() {
     curl -s -L "${gh_url}/releases/download/${program_tag}/${name}-${program_tag}-x86_64-unknown-linux-gnu.tar.gz" --output "${che_dir}/${name}.tar.gz"
 
     # extract binary file to exec path
-    tar -xf "${che_dir}/${name}.tar.gz" -C "${target_dir}"
+    tar -xf "${che_dir}/${name}.tar.gz" -C "${che_dir}"
+    mv "${che_dir}/${name}-${program_tag}-x86_64-unknown-linux-gnu/fd" "${target_dir}/fd"
 
     # remove unnecesary files
     rm "${target_dir}/CHANGELOG.md"

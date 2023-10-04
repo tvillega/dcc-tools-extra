@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+### Program info
+###
+name="fd"
+gh_url="https://github.com/sharkdp/${name}"
+
+### Server var
+###
+che_dir="$HOME/.cache/${name}"
+
+## Install instructions
+##
+function install_program() {
+
+    target_dir="$1"
+
+    # get latest version url
+    program_url=$(curl -w "%{url_effective}\n" -I -L -s -S "${gh_url}/releases/latest" -o /dev/null)
+
+    # get latest tag
+    program_tag="${program_url##*/}"
+
+    # create cache
+    mkdir -p "${che_dir}"
+
+    # download binary file
+    curl -s -L "${gh_url}/releases/download/${program_tag}/${name}-${program_tag##*v}-x86_64-unknown-linux-gnu.tar.gz" --output "${che_dir}/${name}.tar.gz"
+
+    # extract binary file to exec path
+    tar -xf "${che_dir}/${name}.tar.gz" -C "${target_dir}"
+
+    # remove unnecesary files
+    rm "${target_dir}/CHANGELOG.md"
+    rm "${target_dir}/LICENSE-APACHE"
+    rm "${target_dir}/LICENSE-MIT"
+    rm "${target_dir}/README.md"
+    rm -rf "${target_dir}/autocomplete"
+    rm "${target_dir}/fd.1"
+
+    # clean cache
+    rm -rf "${che_dir}"
+
+}
+
+for arg in "$@"
+do
+    case $arg in
+        install)
+            shift
+            install_program "$1"
+            exit
+            ;;
+        *)
+            ;;
+    esac
+done

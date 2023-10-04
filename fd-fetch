@@ -31,14 +31,6 @@ function install_program() {
     tar -xf "${che_dir}/${name}.tar.gz" -C "${che_dir}"
     mv "${che_dir}/${name}-${program_tag}-x86_64-unknown-linux-gnu/fd" "${target_dir}/fd"
 
-    # remove unnecesary files
-    rm "${target_dir}/CHANGELOG.md"
-    rm "${target_dir}/LICENSE-APACHE"
-    rm "${target_dir}/LICENSE-MIT"
-    rm "${target_dir}/README.md"
-    rm -rf "${target_dir}/autocomplete"
-    rm "${target_dir}/fd.1"
-
     # clean cache
     rm -rf "${che_dir}"
 

@@ -4,7 +4,7 @@ Repositorio con programas adicionales para instalar en el servidor.
 
 ## Instalación
 
-Añadir bucket a [`dcc-tools`](https://github.com/tvillega/dcc-tools/tree/ssh-client-mode):
+Añadir bucket a [`dcc-tools`](https://github.com/tvillega/dcc-tools):
 ```
 dcc-tools bucket add extra https://github.com/tvillega/dcc-tools-extra.git
 ```

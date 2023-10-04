@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+### Program info
+###
+name="ncdu"
+
+### Server var
+###
+
+## Install instructions
+##
+function install_program() {
+
+    target_dir="$1"
+
+    # get latset tag
+    program_tag_raw=$(curl -L https://gitlab.archlinux.org/archlinux/packaging/packages/ncdu/-/raw/main/PKGBUILD | grep pkgver=)
+    program_tag="${program_tag_raw##*=}"
+    
+    # download binary file
+    curl -s -L "https://dev.yorhel.nl/download/${name}-${program_tag}-linux-x86_64.tar.gz" --output "${target_dir}/${name}"
+
+}
+
+for arg in "$@"
+do
+    case $arg in
+        install)
+            shift
+            install_program "$1"
+            exit
+            ;;
+        *)
+            ;;
+    esac
+done

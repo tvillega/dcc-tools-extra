@@ -6,6 +6,7 @@ name="ncdu"
 
 ### Server var
 ###
+che_dir="$HOME/.cache/${name}"
 
 ## Install instructions
 ##
@@ -16,9 +17,18 @@ function install_program() {
     # get latset tag
     program_tag_raw=$(curl -L https://gitlab.archlinux.org/archlinux/packaging/packages/ncdu/-/raw/main/PKGBUILD | grep pkgver=)
     program_tag="${program_tag_raw##*=}"
+
+    # create cache
+    mkdir -p "${che_dir}"
     
     # download binary file
-    curl -s -L "https://dev.yorhel.nl/download/${name}-${program_tag}-linux-x86_64.tar.gz" --output "${target_dir}/${name}"
+    curl -s -L "https://dev.yorhel.nl/download/${name}-${program_tag}-linux-x86_64.tar.gz" --output "${che_dir}/${name}.tar.gz"
+
+    # extract binary file to exec path
+    tar -xf "${che_dir}/${name}.tar.gz" -C "${target_dir}"
+
+    # clean cache
+    rm -rf "${che_dir}"
 
 }
 

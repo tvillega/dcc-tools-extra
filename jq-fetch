@@ -21,7 +21,7 @@ function install_program() {
     program_tag="${program_url##*/}"
 
     # download binary file
-    curl -s -L "${gh_url}/releases/download/${program_tag}/${name}-linux-amd64.tar.gz" --output "${target_dir}/${name}"
+    curl -s -L "${gh_url}/releases/download/${program_tag}/${name}-linux-amd64" --output "${target_dir}/${name}"
 
 }
 
